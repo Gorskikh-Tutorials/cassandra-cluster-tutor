@@ -209,7 +209,7 @@ JVM_OPTS="$JVM_OPTS -Dcassandra.jmx.remote.port=7199" cassandra -Dcassandra.conf
 
 4. *As soon as cluster run you need to connect to CQL:*
 ```
-cqlsh 127.0.0.1 9043 -u cassandra -p cassandra (9043 - in yml native_transport_port )
+cqlsh 127.0.0.1 9043 -u cassandra -p cassandra
 ```
 `9043` port is `native_transport_port` config from `yaml` file
 
