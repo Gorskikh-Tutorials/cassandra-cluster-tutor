@@ -205,7 +205,17 @@ or with JVM_OPTS
 JVM_OPTS="$JVM_OPTS -Dcassandra.jmx.remote.port=7199" cassandra -Dcassandra.config=file:///Users/user_name/cassandra/node1/cassandra.yaml
 ```
 
-4. *As soon as cluster run you need to redistribute the default `system_auth` kyspace and specify replication factor:*  
+<br>
+
+4. *As soon as cluster run you need to connect to CQL:*
+```
+cqlsh 127.0.0.1 9043 -u cassandra -p cassandra (9043 - in yml native_transport_port )
+```
+`9043` port is `native_transport_port` config from `yaml` file
+
+<br>
+
+5. *And redistribute the default `system_auth` kyspace and specify replication factor:*  
 ```
 ALTER KEYSPACE system_auth 
 WITH replication = {
