@@ -197,7 +197,7 @@ jmx_port: 7199
 
 <br>
 
-3. *After configuring the `cassandra.yaml` file for each node:*   
+3. *After configuring the `cassandra.yaml` file for each node you need to run each node with specific configs:*   
 
 ```
 cassandra -Dcassandra.config=file:///Users/user_name/cassandra/node1/cassandra.yaml
@@ -205,6 +205,24 @@ or with JVM_OPTS
 JVM_OPTS="$JVM_OPTS -Dcassandra.jmx.remote.port=7199" cassandra -Dcassandra.config=file:///Users/user_name/cassandra/node1/cassandra.yaml
 ```
 
+4. *As soon as cluster run you need to redistribute the default `system_auth` kyspace and specify replication factor:*  
+```
+ALTER KEYSPACE system_auth 
+WITH replication = {
+    'class': 'NetworkTopologyStrategy', 
+    'replication_factor' : 3
+};
+```
+
+Or use this script if you have several datacenters and want to specify replication factor for each DC granually:
+```
+ALTER KEYSPACE system_auth 
+WITH replication = {
+    'class': 'NetworkTopologyStrategy', 
+    'DC1': 3,
+    'DC2': 2
+};
+```
 
 Useful Link: 
  - https://docs.vultr.com/how-to-deploy-a-multi-node-apache-cassandra-database-cluster-on-ubuntu-22-04
